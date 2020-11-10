@@ -2,9 +2,10 @@ version: '3.3'
 
 services:
   wordpress:
-    build:
-      context: ./
-      dockerfile: Dockerfile-wordpress
+    image: wordpress:5.5.3-php7.4-apache
+    # build:
+    #   context: ./
+    #   dockerfile: Dockerfile-wordpress
     volumes:
       - ./newschoolsite_wordpress:/var/www/html
     ports:
