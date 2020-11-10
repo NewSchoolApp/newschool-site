@@ -1,0 +1,31 @@
+version: '3.3'
+
+services:
+  wordpress:
+    build:
+      context: ./
+      dockerfile: Dockerfile-wordpress
+    volumes:
+      - ./newschoolsite_wordpress:/var/www/html
+    ports:
+      - "80:80"
+    restart: always
+    environment:
+      WORDPRESS_DB_HOST: newschoolsite_db:3306
+      WORDPRESS_DB_USER: newschoolsite
+      WORDPRESS_DB_PASSWORD: {put-user-password-here}
+      WORDPRESS_DB_NAME: newschoolsite
+    depends_on:
+      - newschoolsite_db
+
+
+  newschoolsite_db:
+    image: mysql:5.7
+    volumes:
+      - ./newschoolsite_db:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: {put-root-password-here}
+      MYSQL_DATABASE: newschoolsite
+      MYSQL_USER: newschoolsite
+      MYSQL_PASSWORD: {put-user-password-here}
